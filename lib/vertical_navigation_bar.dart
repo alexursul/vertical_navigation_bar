@@ -1,6 +1,7 @@
 library vertical_navigation_bar;
 
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 typedef OnNavigationItemSelected(int index);
 
@@ -9,21 +10,13 @@ class SideNavigationItem {
   final String title;
   bool selected;
 
-  SideNavigationItem({
-    @required this.icon,
-    @required this.title,
-    this.selected = false
-  });
+  SideNavigationItem({@required this.icon, @required this.title, this.selected = false});
 }
 
 class SideNavigationItemWidget extends StatefulWidget {
   final SideNavigationItem item;
 
-  SideNavigationItemWidget({
-    Key key,
-    @required this.item
-  })
-      :super(key: key);
+  SideNavigationItemWidget({Key key, @required this.item}) : super(key: key);
 
   @override
   _SideNavigationItemWidgetState createState() => _SideNavigationItemWidgetState();
@@ -35,21 +28,30 @@ class _SideNavigationItemWidgetState extends State<SideNavigationItemWidget> {
     final theme = Theme.of(context);
     return Container(
       decoration: BoxDecoration(
-        border:
-        Border(left: BorderSide(color: widget.item.selected ? Theme
-            .of(context)
-            .accentColor : Colors.transparent, width: 3.0)),
+        border: Border(
+            left: BorderSide(
+                color: widget.item.selected ? Theme
+                    .of(context)
+                    .accentColor : Colors.transparent,
+                width: 3.0)),
       ),
       child: Padding(
         padding: EdgeInsets.only(top: 25.0, bottom: 25.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Icon(widget.item.icon, size: 32, color: Colors.white,),
-            Padding(padding: EdgeInsets.all(10.0),
-              child: Text(widget.item.title,
+            Icon(
+              widget.item.icon,
+              size: 32,
+              color: Colors.white,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 6.0),
+              child: Text(
+                tr(widget.item.title),
                 textAlign: TextAlign.center,
-                style: theme.primaryTextTheme.subtitle1.copyWith(color: Colors.white),),
+                style: theme.primaryTextTheme.subtitle1.copyWith(color: Colors.white),
+              ),
             )
           ],
         ),
@@ -58,28 +60,22 @@ class _SideNavigationItemWidgetState extends State<SideNavigationItemWidget> {
   }
 }
 
-
 class SideNavigation extends StatefulWidget {
   final List<SideNavigationItem> navItems;
   final OnNavigationItemSelected itemSelected;
   final int initialIndex;
   final List<Widget> actions;
 
-  SideNavigation({
-    Key key,
+  SideNavigation({Key key,
     @required this.navItems,
     @required this.itemSelected,
     @required this.initialIndex,
-    @required this.actions
-  });
+    @required this.actions});
 
   @override
   _SideNavigationState createState() =>
       _SideNavigationState(
-          navItems: this.navItems,
-          initializeIndex: this.initialIndex,
-          actions: this.actions
-      );
+          navItems: this.navItems, initializeIndex: this.initialIndex, actions: this.actions);
 }
 
 class _SideNavigationState extends State<SideNavigation> {
@@ -88,12 +84,8 @@ class _SideNavigationState extends State<SideNavigation> {
   final int initializeIndex;
   var currentIndex;
 
-  _SideNavigationState({
-    Key key,
-    @required this.navItems,
-    @required this.initializeIndex,
-    @required this.actions
-  });
+  _SideNavigationState(
+      {Key key, @required this.navItems, @required this.initializeIndex, @required this.actions});
 
   @override
   void initState() {
@@ -112,11 +104,7 @@ class _SideNavigationState extends State<SideNavigation> {
         .size;
     return Container(
         decoration: BoxDecoration(
-            color: theme.primaryColor,
-            boxShadow: [
-              BoxShadow(color: Colors.grey, blurRadius: 6.0)
-            ]
-        ),
+            color: theme.primaryColor, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 6.0)]),
         width: size.width / 13,
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -124,12 +112,17 @@ class _SideNavigationState extends State<SideNavigation> {
           children: <Widget>[
             ListView.separated(
               separatorBuilder: (context, index) {
-                return Divider(color: Colors.white, height: 1.0,);
+                return Divider(
+                  color: Colors.white,
+                  height: 1.0,
+                );
               },
               itemBuilder: (context, index) {
                 var item = navItems[index];
                 return GestureDetector(
-                  child: SideNavigationItemWidget(item: item,),
+                  child: SideNavigationItemWidget(
+                    item: item,
+                  ),
                   onTap: () {
                     setState(() {
                       navItems.forEach((item) => item.selected = false);
@@ -159,8 +152,6 @@ class _SideNavigationState extends State<SideNavigation> {
                   }),
             )
           ],
-        )
-    );
+        ));
   }
 }
-
