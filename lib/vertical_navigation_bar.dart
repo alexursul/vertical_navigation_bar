@@ -50,7 +50,7 @@ class _SideNavigationItemWidgetState extends State<SideNavigationItemWidget> {
               child: Text(
                 tr(widget.item.title),
                 textAlign: TextAlign.center,
-                style: theme.primaryTextTheme.subtitle1.copyWith(color: Colors.white),
+                style: theme.primaryTextTheme.subtitle2.copyWith(color: Colors.white),
               ),
             )
           ],
