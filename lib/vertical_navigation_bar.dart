@@ -10,13 +10,13 @@ class SideNavigationItem {
   final String title;
   bool selected;
 
-  SideNavigationItem({@required this.icon, @required this.title, this.selected = false});
+  SideNavigationItem({required this.icon, required this.title, this.selected = false});
 }
 
 class SideNavigationItemWidget extends StatefulWidget {
   final SideNavigationItem item;
 
-  SideNavigationItemWidget({Key key, @required this.item}) : super(key: key);
+  SideNavigationItemWidget({Key? key, required this.item}) : super(key: key);
 
   @override
   _SideNavigationItemWidgetState createState() => _SideNavigationItemWidgetState();
@@ -30,9 +30,7 @@ class _SideNavigationItemWidgetState extends State<SideNavigationItemWidget> {
       decoration: BoxDecoration(
         border: Border(
             left: BorderSide(
-                color: widget.item.selected ? Theme
-                    .of(context)
-                    .accentColor : Colors.transparent,
+                color: widget.item.selected ? Theme.of(context).accentColor : Colors.transparent,
                 width: 3.0)),
       ),
       child: Padding(
@@ -50,7 +48,7 @@ class _SideNavigationItemWidgetState extends State<SideNavigationItemWidget> {
               child: Text(
                 tr(widget.item.title),
                 textAlign: TextAlign.center,
-                style: theme.primaryTextTheme.subtitle2.copyWith(color: Colors.white),
+                style: theme.primaryTextTheme.subtitle2!.copyWith(color: Colors.white),
               ),
             )
           ],
@@ -66,16 +64,16 @@ class SideNavigation extends StatefulWidget {
   final int initialIndex;
   final List<Widget> actions;
 
-  SideNavigation({Key key,
-    @required this.navItems,
-    @required this.itemSelected,
-    @required this.initialIndex,
-    @required this.actions});
+  SideNavigation(
+      {Key? key,
+      required this.navItems,
+      required this.itemSelected,
+      required this.initialIndex,
+      required this.actions});
 
   @override
-  _SideNavigationState createState() =>
-      _SideNavigationState(
-          navItems: this.navItems, initializeIndex: this.initialIndex, actions: this.actions);
+  _SideNavigationState createState() => _SideNavigationState(
+      navItems: this.navItems, initializeIndex: this.initialIndex, actions: this.actions);
 }
 
 class _SideNavigationState extends State<SideNavigation> {
@@ -84,8 +82,11 @@ class _SideNavigationState extends State<SideNavigation> {
   final int initializeIndex;
   var currentIndex;
 
-  _SideNavigationState(
-      {Key key, @required this.navItems, @required this.initializeIndex, @required this.actions});
+  _SideNavigationState({
+    required this.navItems,
+    required this.initializeIndex,
+    required this.actions,
+  });
 
   @override
   void initState() {
@@ -99,9 +100,7 @@ class _SideNavigationState extends State<SideNavigation> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
     return Container(
         decoration: BoxDecoration(
             color: theme.primaryColor, boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 6.0)]),
@@ -144,7 +143,7 @@ class _SideNavigationState extends State<SideNavigation> {
             ),
             Container(
               child: ListView.builder(
-                  itemCount: actions == null ? 0 : actions.length,
+                  itemCount: actions.length,
                   shrinkWrap: true,
                   primary: false,
                   itemBuilder: (context, index) {
