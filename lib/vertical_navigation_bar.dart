@@ -34,13 +34,13 @@ class _SideNavigationItemWidgetState extends State<SideNavigationItemWidget> {
                 width: 3.0)),
       ),
       child: Padding(
-        padding: EdgeInsets.only(top: 25.0, bottom: 25.0),
+        padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Icon(
               widget.item.icon,
-              size: 32,
+              size: 30,
               color: Colors.white,
             ),
             Padding(
